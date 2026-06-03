@@ -2,8 +2,8 @@ import { z } from 'zod'
 import { ScaffoldParams, ValidationResult } from './types'
 
 const schema = z.object({
-  height_m: z.number({ required_error: 'height_m is required' }).positive(),
-  bay_length_m: z.number({ required_error: 'bay_length_m is required' }).positive(),
+  height_m: z.number().positive(),
+  bay_length_m: z.number().positive(),
   lift_height_m: z.number()
     .min(1.5, 'Lift height must be between 1.5 and 2.7 m')
     .max(2.7, 'Lift height must be between 1.5 and 2.7 m')
