@@ -2,17 +2,22 @@
 import { useState } from 'react'
 import { ScaffoldForm } from '@/components/ScaffoldForm'
 import { ResultsPanel } from '@/components/ResultsPanel'
+import { ElevationView } from '@/components/ElevationView'
+import MtoPanel from '@/components/MtoPanel'
 import { runCalc } from '@/lib/calc/index'
-import { CalcResult } from '@/lib/calc/types'
+import { calculateMto } from '@/lib/calc/mto'
+import { CalcResult, ScaffoldParams } from '@/lib/calc/types'
 
 export default function Home() {
   const [result, setResult] = useState<CalcResult | null>(null)
   const [error, setError] = useState<string | null>(null)
   const [isLoading, setIsLoading] = useState(false)
+  const [submittedParams, setSubmittedParams] = useState<Record<string, unknown> | null>(null)
 
   function handleSubmit(params: Record<string, unknown>) {
     setIsLoading(true)
     setError(null)
+    setSubmittedParams(params)
     try {
       const calcResult = runCalc(params)
       setResult(calcResult)
@@ -59,6 +64,20 @@ export default function Home() {
           ) : null}
         </div>
       </div>
+
+      {result && submittedParams && (
+        <div className="mt-8 grid grid-cols-1 xl:grid-cols-2 gap-8">
+          <div className="rounded-xl bg-slate-800/50 border border-slate-700 p-6">
+            <ElevationView params={submittedParams as unknown as ScaffoldParams} />
+          </div>
+          <div className="rounded-xl bg-slate-800/50 border border-slate-700 p-6">
+            <MtoPanel
+              mto={calculateMto(submittedParams as unknown as ScaffoldParams)}
+              jobRef={result.jobRef}
+            />
+          </div>
+        </div>
+      )}
 
       <div className="mt-8 text-center space-y-1">
         <p className="text-xs text-slate-600">
