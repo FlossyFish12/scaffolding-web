@@ -7,6 +7,7 @@ interface FormState {
   bay_length_m: string
   lift_height_m: string
   boards: string
+  num_bays: string
   load_class: string
   wind_zone: string
   tie_pattern: string
@@ -19,12 +20,12 @@ interface ScaffoldFormProps {
 }
 
 const REQUIRED_FIELDS: (keyof FormState)[] = [
-  'height_m', 'bay_length_m', 'boards', 'load_class', 'wind_zone', 'tie_pattern',
+  'height_m', 'bay_length_m', 'boards', 'num_bays', 'load_class', 'wind_zone', 'tie_pattern',
 ]
 
 const INITIAL_STATE: FormState = {
   job_ref: '', height_m: '', bay_length_m: '', lift_height_m: '2.0',
-  boards: '', load_class: '', wind_zone: '', tie_pattern: 'alternate',
+  boards: '', num_bays: '10', load_class: '', wind_zone: '', tie_pattern: 'alternate',
   ground_bearing_kpa: '50',
 }
 
@@ -34,6 +35,7 @@ const HELP_TEXT: Record<keyof FormState, string> = {
   bay_length_m: 'Standard bays: 1.8 m, 2.1 m, or 2.4 m',
   lift_height_m: 'Height between successive working platforms (1.5–2.7 m)',
   boards: 'Number of boards wide (3 = light access, 5 = full-width working platform)',
+  num_bays: 'Total number of scaffold bays along the structure',
   load_class: 'TG20 load class 1–6 (class 2 = 1.5 kN/m², class 3 = 2.0 kN/m²)',
   wind_zone: 'UK wind zone 1–4 (1 = sheltered, 4 = severe exposed)',
   tie_pattern: 'How frequently the scaffold is tied back to the structure',
@@ -44,21 +46,21 @@ const PRESETS: { label: string; values: Partial<FormState> }[] = [
   {
     label: 'Typical 10m',
     values: {
-      height_m: '10', bay_length_m: '2.1', lift_height_m: '2.0', boards: '4',
+      height_m: '10', bay_length_m: '2.1', lift_height_m: '2.0', boards: '4', num_bays: '10',
       load_class: '2', wind_zone: '2', tie_pattern: 'alternate', ground_bearing_kpa: '50',
     },
   },
   {
     label: 'Medium 20m',
     values: {
-      height_m: '20', bay_length_m: '2.1', lift_height_m: '2.0', boards: '4',
+      height_m: '20', bay_length_m: '2.1', lift_height_m: '2.0', boards: '4', num_bays: '10',
       load_class: '3', wind_zone: '2', tie_pattern: 'alternate', ground_bearing_kpa: '50',
     },
   },
   {
     label: 'Heavy 25m',
     values: {
-      height_m: '25', bay_length_m: '2.4', lift_height_m: '2.0', boards: '5',
+      height_m: '25', bay_length_m: '2.4', lift_height_m: '2.0', boards: '5', num_bays: '10',
       load_class: '4', wind_zone: '3', tie_pattern: 'every_lift', ground_bearing_kpa: '100',
     },
   },
@@ -121,6 +123,7 @@ export function ScaffoldForm({ onSubmit, isLoading }: ScaffoldFormProps) {
       bay_length_m: parseFloat(form.bay_length_m),
       lift_height_m: parseFloat(form.lift_height_m),
       boards: parseInt(form.boards),
+      num_bays: parseInt(form.num_bays),
       load_class: parseInt(form.load_class),
       wind_zone: parseInt(form.wind_zone),
       tie_pattern: form.tie_pattern,
@@ -185,6 +188,7 @@ export function ScaffoldForm({ onSubmit, isLoading }: ScaffoldFormProps) {
           {field('bay_length_m', 'Bay length (m)', 'e.g. 2.1')}
           {field('lift_height_m', 'Lift height (m)', 'default 2.0')}
           {field('boards', 'Boards (3–5)', 'e.g. 4')}
+          {field('num_bays', 'Number of bays', 'e.g. 10')}
         </div>
       </div>
 

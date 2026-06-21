@@ -3,6 +3,7 @@ export interface ScaffoldParams {
   bay_length_m: number
   lift_height_m: number
   boards: number
+  num_bays: number
   load_class: number
   wind_zone: number
   tie_pattern: 'alternate' | 'every_lift' | 'every_bay'

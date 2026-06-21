@@ -11,6 +11,7 @@ const schema = z.object({
   boards: z.number().int()
     .min(3, 'boards must be 3, 4, or 5')
     .max(5, 'boards must be 3, 4, or 5'),
+  num_bays: z.number().int().min(1, 'Must be at least 1 bay').default(10),
   load_class: z.number().int()
     .min(1, 'Load class must be 1–6')
     .max(6, 'Load class must be 1–6'),
@@ -51,6 +52,7 @@ export function validate(data: Record<string, unknown>): ValidationResult {
     bay_length_m: d.bay_length_m,
     lift_height_m: d.lift_height_m,
     boards: d.boards,
+    num_bays: d.num_bays,
     load_class: d.load_class,
     wind_zone: d.wind_zone,
     tie_pattern: d.tie_pattern as ScaffoldParams['tie_pattern'],
