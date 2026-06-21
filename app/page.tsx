@@ -28,7 +28,15 @@ export default function Home() {
     <main className="max-w-5xl mx-auto px-4 py-8">
       <div className="mb-8">
         <h1 className="text-2xl font-bold text-slate-100">Scaffolding Calculator</h1>
-        <p className="text-sm text-slate-400 mt-1">NASC TG20:13 / BS EN 5975 — Tube and fitting scaffold</p>
+        <p className="text-sm text-slate-400 mt-1">
+          NASC TG20:13 · BS EN 5975 · Tube-and-fitting scaffold
+        </p>
+        <div className="mt-3 flex flex-wrap gap-4 text-xs text-slate-500">
+          <span>✓ TG20 table compliance check</span>
+          <span>✓ EN 1993-1-1 Euler buckling check</span>
+          <span>✓ Ground bearing check</span>
+          <span>✓ Calc sheet &amp; method statement download</span>
+        </div>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
@@ -52,9 +60,14 @@ export default function Home() {
         </div>
       </div>
 
-      <p className="mt-8 text-xs text-slate-600 text-center">
-        TG20 table values are representative — verify against your NASC TG20:13 eGuide before production use.
-      </p>
+      <div className="mt-8 text-center space-y-1">
+        <p className="text-xs text-slate-600">
+          TG20 table values are representative — verify against your NASC TG20:13 eGuide before production use.
+        </p>
+        <p className="text-xs text-slate-700">
+          Not a substitute for a competent person&apos;s assessment. Always comply with site-specific requirements.
+        </p>
+      </div>
     </main>
   )
 }
