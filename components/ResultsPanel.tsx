@@ -48,6 +48,11 @@ export function ResultsPanel({ result }: ResultsPanelProps) {
       {result.checks.length > 0 && (
         <div>
           <p className="text-xs font-semibold uppercase tracking-widest text-slate-500 mb-2">Checks</p>
+          {(() => {
+            const passCount = result.checks.filter(c => c.passed).length
+            const totalCount = result.checks.length
+            return <p className="text-xs text-slate-400 mb-2">{passCount}/{totalCount} checks passed</p>
+          })()}
           <table className="w-full text-xs">
             <thead>
               <tr className="text-slate-500 border-b border-slate-700">
@@ -60,7 +65,7 @@ export function ResultsPanel({ result }: ResultsPanelProps) {
             </thead>
             <tbody>
               {result.checks.map((c, i) => (
-                <tr key={i} className="border-b border-slate-800">
+                <tr key={i} className={`border-b border-slate-800${c.passed ? '' : ' bg-red-950/30'}`}>
                   <td className="py-1.5 pr-2 text-slate-300">{c.name}</td>
                   <td className="py-1.5 pr-2 text-slate-300">{c.actual} {c.unit}</td>
                   <td className="py-1.5 pr-2 text-slate-300">{c.limit} {c.unit}</td>
@@ -86,7 +91,7 @@ export function ResultsPanel({ result }: ResultsPanelProps) {
         </div>
       )}
 
-      <div className="grid grid-cols-2 gap-2">
+      <div className="grid grid-cols-3 gap-2">
         <button
           onClick={() => downloadMarkdown(result.calcSheet, `${result.jobRef}-calc.md`)}
           className="rounded bg-slate-700 px-3 py-2 text-xs font-medium text-slate-200 hover:bg-slate-600 transition-colors"
@@ -98,6 +103,12 @@ export function ResultsPanel({ result }: ResultsPanelProps) {
           className="rounded bg-slate-700 px-3 py-2 text-xs font-medium text-slate-200 hover:bg-slate-600 transition-colors"
         >
           ↓ Method Statement (.md)
+        </button>
+        <button
+          onClick={() => window.print()}
+          className="rounded bg-slate-700 px-3 py-2 text-xs font-medium text-slate-200 hover:bg-slate-600 transition-colors print:hidden"
+        >
+          ⎙ Print
         </button>
       </div>
     </div>

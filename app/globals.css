@@ -24,3 +24,17 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+@media print {
+  body { background: white !important; color: black !important; }
+  .print\:hidden { display: none !important; }
+  /* hide the form column — first child of the grid */
+  main > div:first-child { display: none !important; }
+  /* hide footer disclaimer */
+  main > p { display: none !important; }
+  /* make results fill the page */
+  main > div:last-child { grid-column: 1 / -1 !important; border: none !important; background: white !important; }
+  /* table borders */
+  table { width: 100%; border-collapse: collapse; }
+  th, td { border-bottom: 1px solid #ddd; padding: 4px 8px; color: black !important; font-size: 11px; }
+}
